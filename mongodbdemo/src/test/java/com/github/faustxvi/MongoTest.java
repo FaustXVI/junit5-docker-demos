@@ -4,9 +4,7 @@ import com.github.junit5docker.Docker;
 import com.github.junit5docker.Port;
 import com.github.junit5docker.WaitFor;
 import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,10 +17,13 @@ public class MongoTest {
 
     private MongoDatabase database;
 
+    private UseMongo useMongo;
+
     @BeforeEach
     public void createDatabase() {
         MongoClient mongoClient = new MongoClient();
-        database = mongoClient.getDatabase("juni5-docker");
+        database = mongoClient.getDatabase("junit5-docker");
+        useMongo = new UseMongo(database);
     }
 
     @AfterEach
@@ -32,16 +33,14 @@ public class MongoTest {
 
     @Test
     void shouldAddOneDocumentToMongo() {
-        MongoCollection<Document> data = database.getCollection("demo");
-        data.insertOne(new Document("name", "MongoDB"));
-        Assertions.assertEquals(1L, data.count());
+        useMongo.addUser("MongoDB");
+        Assertions.assertEquals(1L, useMongo.count());
     }
 
     @Test
     void shouldAddTwoDocumentsToMongo() {
-        MongoCollection<Document> data = database.getCollection("demo");
-        data.insertOne(new Document("name", "MongoDB"));
-        data.insertOne(new Document("name", "Meetup"));
-        Assertions.assertEquals(2L, data.count());
+        useMongo.addUser("MongoDB");
+        useMongo.addUser("Meetup");
+        Assertions.assertEquals(2L, useMongo.count());
     }
 }
