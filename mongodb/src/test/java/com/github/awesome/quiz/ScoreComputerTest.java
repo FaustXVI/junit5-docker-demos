@@ -11,7 +11,7 @@ import static java.time.Duration.ofMillis;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Score computation")
-public class ScoreComputerTest {
+class ScoreComputerTest {
 
     private ScoreComputer scoreComputer;
 
