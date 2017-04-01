@@ -24,10 +24,8 @@ public class AnswerRepositoryIT {
     @Test
     void shouldGetAnswerFromMongo() {
         repository.add("Makemake", "Planète du système solaire");
-
         String actualAnswer = repository.getAnswerFor("Makemake");
-
-        assertThat(actualAnswer).isEqualTo("Planète du système solaire");
+        assertThat(actualAnswer).containsIgnoringCase("Planète du système solaire");
     }
 
     @AfterEach
