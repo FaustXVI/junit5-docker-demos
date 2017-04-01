@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class AnswerRepository {
 
-    public static final String QUESTION_KEY = "question";
+    private static final String QUESTION_KEY = "question";
 
-    public static final String ANSWER_KEY = "answer";
+    private static final String ANSWER_KEY = "answer";
 
     private final MongoCollection<Document> databaseCollection;
 
@@ -20,15 +20,15 @@ public class AnswerRepository {
         databaseCollection = database.getCollection("answers");
     }
 
-    public void add(Question question, Answer answer) {
+    public void add(String question, String answer) {
         Map<String, Object> doc = new HashMap<>();
-        doc.put(QUESTION_KEY, question.value);
-        doc.put(ANSWER_KEY, answer.value);
+        doc.put(QUESTION_KEY, question);
+        doc.put(ANSWER_KEY, answer);
         databaseCollection.insertOne(new Document(doc));
     }
 
-    public Answer getAnswerFor(Question question) {
-        FindIterable<Document> documents = databaseCollection.find(new Document(QUESTION_KEY, question.value));
-        return Answer.answer((String) documents.first().get(ANSWER_KEY));
+    public String getAnswerFor(String question) {
+        FindIterable<Document> documents = databaseCollection.find(new Document(QUESTION_KEY, question));
+        return (String) documents.first().get(ANSWER_KEY);
     }
 }
