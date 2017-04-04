@@ -92,7 +92,7 @@
         <dependency>
             <groupId>com.github.faustxvi</groupId>
             <artifactId>junit5-docker</artifactId>
-            <version>1.0.0-RC3</version>
+            <version>1.0.0-RC4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
