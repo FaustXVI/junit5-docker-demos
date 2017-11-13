@@ -15,5 +15,6 @@ pkgs.stdenv.mkDerivation rec {
       pkgs.openjdk
       pkgs.maven
       pkgs.docker
+      pkgs.libcxx
   ];
 }
