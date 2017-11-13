@@ -1,20 +1,20 @@
 let
   _pkgs = import <nixpkgs> {};
-in
-{ pkgs ? import (_pkgs.fetchFromGitHub { owner = "NixOS";
+  nixpkgs = _pkgs.fetchFromGitHub { owner = "NixOS";
                                          repo = "nixpkgs-channels";
-                                         rev = "759620505595d72879d1d8c74a59c0868cce8f71";
-                                         sha256 = "05x9szam0yqjdiz69px165krzsycsa419yq0zsv6s5lczmbl7cvn";
-                                       }) {}
-}:
+                                         rev = "39cd40f7bea40116ecb756d46a687bfd0d2e550e";
+                                         sha256 = "0kpx4h9p1lhjbn1gsil111swa62hmjs9g93xmsavfiki910s73sh";
+                                       };
+in
+with import nixpkgs {};
 
-pkgs.stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   name = "junit5-docker";
-  env = pkgs.buildEnv { name = name; paths = buildInputs; };
+  env = buildEnv { name = name; paths = buildInputs; };
   buildInputs = [
-      pkgs.openjdk
-      pkgs.maven
-      pkgs.docker
-      pkgs.libcxx
+      openjdk
+      maven
+      docker
+      libcxx
   ];
 }
